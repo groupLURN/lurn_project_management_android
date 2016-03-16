@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,12 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+
 import com.android.lurn.projectmanagement.Models.Helpers.SystemBus;
 
-public class MainActivity extends AppCompatActivity
+public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final static String TAG = "MainActivity";
+    private final static String TAG = "BaseActivity";
 
     private Toolbar mToolbar;
     private FloatingActionButton mFab;
@@ -62,12 +65,18 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         // Inflate views.
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_base);
 
         // Initialize widgets.
         onWidgetReference();
         onWidgetSetup();
 
+
+        ViewGroup inclusionViewGroup = (ViewGroup)findViewById(R.id.main_inclusion_layout);
+
+        View child1 = LayoutInflater.from(this).inflate(
+                R.layout.dummy_layout, null);
+        inclusionViewGroup.addView(child1);
         // Register this activity to the Bus.
         SystemBus.instance().register(this);
     }
@@ -97,7 +106,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_base, menu);
         return true;
     }
 
