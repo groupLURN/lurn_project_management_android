@@ -7,7 +7,7 @@ import com.android.lurn.projectmanagement.Models.Events.PostFailureEvent;
 import com.android.lurn.projectmanagement.Models.Events.PostSuccessEvent;
 import com.android.lurn.projectmanagement.Models.Events.PreExecuteEvent;
 import com.android.lurn.projectmanagement.Models.Helpers.SystemBus;
-import com.android.lurn.projectmanagement.Models.Configurations.RestURL;
+import com.android.lurn.projectmanagement.Models.Configurations.HttpRequest;
 
 import org.json.JSONObject;
 
@@ -30,7 +30,7 @@ public class RestClient extends AsyncTask<Object, Object, Object> {
     protected Object doInBackground(Object... params) {
 
         try {
-            HttpURLConnection httpConnection = RestURL.generate("projects");
+            HttpURLConnection httpConnection = HttpRequest.generate("projects");
             try {
                 BufferedReader bufferedReader;
                 bufferedReader = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));

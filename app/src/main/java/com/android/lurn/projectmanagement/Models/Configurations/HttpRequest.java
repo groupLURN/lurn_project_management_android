@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by Emmett on 16/03/2016.
  */
-public final class RestURL {
+public final class HttpRequest {
 
     private static final String FORMAT = ".json";
 

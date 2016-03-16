@@ -7,7 +7,7 @@ import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
-import com.android.lurn.projectmanagement.Models.Configurations.RestURL;
+import com.android.lurn.projectmanagement.Models.Configurations.HttpRequest;
 
 
 /**
@@ -77,7 +77,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
         // Use the user-defined server IP Address
         if(preference.getKey().equals(PREF_GENERAL_IP_ADDRESS))
-            RestURL.setHostname(stringValue);
+            HttpRequest.setHostname(stringValue);
         // For all other preferences, set the summary to the value's
         // simple string representation.
         preference.setSummary(stringValue);
