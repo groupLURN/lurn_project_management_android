@@ -7,6 +7,8 @@ import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import com.android.lurn.projectmanagement.Models.Configurations.RestURL;
+
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -73,6 +75,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     public boolean onPreferenceChange(Preference preference, Object value) {
         String stringValue = value.toString();
 
+        // Use the user-defined server IP Address
+        if(preference.getKey().equals(PREF_GENERAL_IP_ADDRESS))
+            RestURL.setHostname(stringValue);
         // For all other preferences, set the summary to the value's
         // simple string representation.
         preference.setSummary(stringValue);
