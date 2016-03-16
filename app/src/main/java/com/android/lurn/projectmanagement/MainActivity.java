@@ -15,10 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.android.lurn.projectmanagement.Models.Helpers.SystemBus;
 
-public class ProjectsActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final static String TAG = "ProjectsActivity";
+    private final static String TAG = "MainActivity";
 
     private Toolbar mToolbar;
     private FloatingActionButton mFab;
