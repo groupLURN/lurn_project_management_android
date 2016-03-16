@@ -12,34 +12,121 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.android.lurn.projectmanagement.Models.Events.PostFailureEvent;
+import com.android.lurn.projectmanagement.Models.Events.PostSuccessEvent;
+import com.android.lurn.projectmanagement.Models.Events.PreExecuteEvent;
+import com.android.lurn.projectmanagement.Models.Clients.RestClient;
+import com.android.lurn.projectmanagement.Models.Helpers.SystemBus;
+import com.squareup.otto.Subscribe;
 
 public class ProjectsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Toolbar mToolbar;
+    private FloatingActionButton mFab;
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
+    private ArrayAdapter mAdapter;
+    private Button mQueryButton;
+    private ProgressBar mProgressBar;
+    private TextView mResponseView;
+
+    private void onWidgetReference()
+    {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mQueryButton = (Button) findViewById(R.id.queryButton);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mResponseView = (TextView) findViewById(R.id.responseView);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        onWidgetReference();
+        // Use the toolbar instead of the system one.
+        setSupportActionBar(mToolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        // I don't know what this code does.
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+
+        // Bind a listener.
+        mNavigationView.setNavigationItemSelectedListener(this);
+
+        // Connect a listener.
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+        // Connect a listener.
+        mQueryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new RestClient().execute();
+            }
+        });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        SystemBus.instance().register(this);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        String [] array = {
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today",
+//                "Today"
+//        };
+//        List<String> list = new ArrayList<String>(Arrays.asList(array));
+//        mAdapter = new ArrayAdapter(this, R.layout.list_item_projects, R.id.list_item_projects_text_view, list);
+
+//        ListView recyclerView = (ListView) findViewById(R.id.recycler_view_projects);
+//        recyclerView.setAdapter(mAdapter);
+    }
+
+    @Subscribe
+    public void onPreExecute(PreExecuteEvent event) {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mResponseView.setText("");
+    }
+
+    @Subscribe
+    public void onPostSuccess(PostSuccessEvent event) {
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mResponseView.setText(event.getResult().toString());
+    }
+
+    @Subscribe
+    public void onPostFailure(PostFailureEvent event) {
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mResponseView.setText("Failure");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SystemBus.instance().unregister(this);
     }
 
     @Override
