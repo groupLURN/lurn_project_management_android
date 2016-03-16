@@ -1,5 +1,6 @@
 package com.android.lurn.projectmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,6 +28,7 @@ import com.squareup.otto.Subscribe;
 public class ProjectsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final static String TAG = "ProjectsActivity";
     private Toolbar mToolbar;
     private FloatingActionButton mFab;
     private DrawerLayout mDrawerLayout;
@@ -155,6 +157,7 @@ public class ProjectsActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
