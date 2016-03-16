@@ -27,7 +27,7 @@ public final class HttpRequest {
         // Create an HTTP Connection.
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         // Add Basic Authentication to HTTP headers.
-        String userCredentials = "manager:admin";
+        String userCredentials = sUsername + ":" + sPassword;
         String basicAuth = "Basic " + new String(Base64.encode(userCredentials.getBytes(), Base64.DEFAULT));
         urlConnection.setRequestProperty("Authorization", basicAuth);
 

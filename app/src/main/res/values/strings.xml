@@ -25,4 +25,10 @@
     <string name="pref_title_ip_address">Server IP Address</string>
     <string name="pref_default_ip_address">http://192.168.1.11</string>
 
+    <string name="pref_title_username">Username</string>
+    <string name="pref_default_username">admin</string>
+
+    <string name="pref_title_password">Password</string>
+    <string name="pref_default_password">admin</string>
+
 </resources>

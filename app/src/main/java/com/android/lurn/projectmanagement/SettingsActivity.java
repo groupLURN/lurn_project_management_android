@@ -25,6 +25,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
     private final static String PREF_GENERAL_IP_ADDRESS = "ip_address";
+    private final static String PREF_GENERAL_USERNAME = "username";
+    private final static String PREF_GENERAL_PASSWORD = "password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         // updated to reflect the new value, per the Android Design
         // guidelines.
         bindPreferenceSummaryToValue(findPreference(PREF_GENERAL_IP_ADDRESS));
+        bindPreferenceSummaryToValue(findPreference(PREF_GENERAL_USERNAME));
+        bindPreferenceSummaryToValue(findPreference(PREF_GENERAL_PASSWORD));
     }
 
     /**
@@ -78,6 +82,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         // Use the user-defined server IP Address
         if(preference.getKey().equals(PREF_GENERAL_IP_ADDRESS))
             HttpRequest.setHostname(stringValue);
+        else if(preference.getKey().equals(PREF_GENERAL_USERNAME))
+            HttpRequest.setUsername(stringValue);
+        else if(preference.getKey().equals(PREF_GENERAL_PASSWORD))
+            HttpRequest.setPassword(stringValue);
         // For all other preferences, set the summary to the value's
         // simple string representation.
         preference.setSummary(stringValue);
