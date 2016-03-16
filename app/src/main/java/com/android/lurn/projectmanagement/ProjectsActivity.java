@@ -13,30 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.android.lurn.projectmanagement.Models.Events.PostFailureEvent;
-import com.android.lurn.projectmanagement.Models.Events.PostSuccessEvent;
-import com.android.lurn.projectmanagement.Models.Events.PreExecuteEvent;
-import com.android.lurn.projectmanagement.Models.Clients.RestClient;
 import com.android.lurn.projectmanagement.Models.Helpers.SystemBus;
-import com.squareup.otto.Subscribe;
 
 public class ProjectsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final static String TAG = "ProjectsActivity";
+
     private Toolbar mToolbar;
     private FloatingActionButton mFab;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
-    private ArrayAdapter mAdapter;
-    private Button mQueryButton;
-    private ProgressBar mProgressBar;
-    private TextView mResponseView;
 
     private void onWidgetReference()
     {
@@ -44,29 +31,14 @@ public class ProjectsActivity extends AppCompatActivity
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-        mQueryButton = (Button) findViewById(R.id.queryButton);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mResponseView = (TextView) findViewById(R.id.responseView);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_projects);
-        onWidgetReference();
+    private void onWidgetSetup()
+    {
         // Use the toolbar instead of the system one.
         setSupportActionBar(mToolbar);
 
-        // I don't know what this code does.
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
-        toggle.syncState();
-
-        // Bind a listener.
-        mNavigationView.setNavigationItemSelectedListener(this);
-
-        // Connect a listener.
+        // Connect an on-click listener.
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,73 +46,54 @@ public class ProjectsActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-        // Connect a listener.
-        mQueryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new RestClient().execute();
-            }
-        });
 
+        // Initialize the toggling of drawer.
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+
+        // Bind a listener which calls different activities based on the chosen module.
+        mNavigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        // Inflate views.
+        setContentView(R.layout.activity_projects);
+
+        // Initialize widgets.
+        onWidgetReference();
+        onWidgetSetup();
+
+        // Register this activity to the Bus.
         SystemBus.instance().register(this);
-
-//        String [] array = {
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today",
-//                "Today"
-//        };
-//        List<String> list = new ArrayList<String>(Arrays.asList(array));
-//        mAdapter = new ArrayAdapter(this, R.layout.list_item_projects, R.id.list_item_projects_text_view, list);
-
-//        ListView recyclerView = (ListView) findViewById(R.id.recycler_view_projects);
-//        recyclerView.setAdapter(mAdapter);
-    }
-
-    @Subscribe
-    public void onPreExecute(PreExecuteEvent event) {
-        mProgressBar.setVisibility(View.VISIBLE);
-        mResponseView.setText("");
-    }
-
-    @Subscribe
-    public void onPostSuccess(PostSuccessEvent event) {
-        mProgressBar.setVisibility(View.INVISIBLE);
-        mResponseView.setText(event.getResult().toString());
-    }
-
-    @Subscribe
-    public void onPostFailure(PostFailureEvent event) {
-        mProgressBar.setVisibility(View.INVISIBLE);
-        mResponseView.setText("Failure");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // Unregister this activity to the Bus.
         SystemBus.instance().unregister(this);
     }
 
+    /**
+     * Does not close the application if the drawer is still opened when back button is pressed.
+     */
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
     }
 
+    /**
+     * Initialize settings.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -148,6 +101,9 @@ public class ProjectsActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Controller for the select menu.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -164,6 +120,9 @@ public class ProjectsActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Controller for the navigation bar.
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -184,8 +143,7 @@ public class ProjectsActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }
