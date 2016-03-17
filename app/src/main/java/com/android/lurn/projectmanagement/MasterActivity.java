@@ -105,7 +105,7 @@ public abstract class MasterActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         // Inflate views.
-        setContentView(R.layout.activity_master);
+        setContentView(R.layout.master_activity);
 
         // Initialize widgets.
         onWidgetReference();
@@ -175,7 +175,7 @@ public abstract class MasterActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_base, menu);
+        getMenuInflater().inflate(R.menu.master_menu, menu);
         return true;
     }
 
