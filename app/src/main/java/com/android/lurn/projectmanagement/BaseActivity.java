@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,7 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+import com.android.lurn.projectmanagement.Models.Clients.RestClient;
 import com.android.lurn.projectmanagement.Models.Configurations.HttpRequest;
+import com.android.lurn.projectmanagement.Models.Events.PostFailureEvent;
+import com.android.lurn.projectmanagement.Models.Events.PostSuccessEvent;
 import com.android.lurn.projectmanagement.Models.Helpers.SystemBus;
 
 public abstract class BaseActivity extends AppCompatActivity
@@ -27,12 +31,24 @@ public abstract class BaseActivity extends AppCompatActivity
 
     private final static String TAG = "BaseActivity";
 
+    protected final static String CONNECTION_ERROR = "Failed to connect. Please check your\n" +
+            "server IP address or network connectivity!";
+
+    protected final static String USER_CREDENTIAL_ERROR = "Failed to connect. Please check your\n" +
+            "username or password!";
+
+    protected final static String SOCKET_TIMEOUT_ERROR = "Connection timeout! Please try again.";
+
+    protected final static String UNKNOWN_ERROR = "Failed to connect! Unknown Error!";
+
+
     protected Toolbar mToolbar;
     protected FloatingActionButton mFab;
     protected DrawerLayout mDrawerLayout;
     protected NavigationView mNavigationView;
     protected ViewGroup mInclusionViewGroup;
     protected SwipeRefreshLayout mSwipeRefreshLayout;
+    protected CoordinatorLayout mCoordinatorLayout;
 
     private void onWidgetReference()
     {
@@ -42,6 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mInclusionViewGroup = (ViewGroup) findViewById(R.id.main_inclusion_layout);
         mSwipeRefreshLayout = (SwipeRefreshLayout) mInclusionViewGroup;
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.base_coordinator_layout);
     }
 
     private void onWidgetSetup()
@@ -111,6 +128,33 @@ public abstract class BaseActivity extends AppCompatActivity
         super.onDestroy();
         // Unregister this activity to the Bus.
         SystemBus.instance().unregister(this);
+    }
+
+    protected void onPostSuccess(PostSuccessEvent event)
+    {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    protected void onPostFailure(PostFailureEvent event)
+    {
+        int exception = (int) event.getResult();
+        String errorMessage = UNKNOWN_ERROR;
+
+        switch(exception)
+        {
+            case RestClient.CONNECTION_EXCEPTION:
+                errorMessage = CONNECTION_ERROR;
+                break;
+            case RestClient.USER_CREDENTIAL_EXCEPTION:
+                errorMessage = USER_CREDENTIAL_ERROR;
+                break;
+            case RestClient.SOCKET_TIMEOUT_EXCEPTION:
+                errorMessage = SOCKET_TIMEOUT_ERROR;
+                break;
+        }
+
+        Snackbar.make(mCoordinatorLayout, errorMessage, Snackbar.LENGTH_LONG).show();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     /**

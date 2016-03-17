@@ -19,7 +19,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.ConnectException;
 import java.util.ArrayList;
 
 /**
@@ -94,17 +93,13 @@ public class ProjectListActivity extends BaseActivity implements AdapterView.OnI
         }
         finally
         {
-            mSwipeRefreshLayout.setRefreshing(false);
+            super.onPostSuccess(event);
         }
     }
 
     @Subscribe
     public void onPostFailure(PostFailureEvent event)
     {
-        Exception exception = (Exception) event.getResult();
-        if(exception instanceof ConnectException)
-            Log.e(TAG, "Failed to connect. Please make sure the server IP address is " +
-                    "correct or your network connectivity!");
-        mSwipeRefreshLayout.setRefreshing(false);
+        super.onPostFailure(event);
     }
 }
