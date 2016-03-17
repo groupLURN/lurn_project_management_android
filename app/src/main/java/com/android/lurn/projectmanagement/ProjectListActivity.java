@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class ProjectListActivity extends BaseActivity implements AdapterView.OnItemClickListener,
+public class ProjectListActivity extends MasterActivity implements AdapterView.OnItemClickListener,
         SwipeRefreshLayout.OnRefreshListener
 {
     private static final String TAG = "ProjectListActivity";

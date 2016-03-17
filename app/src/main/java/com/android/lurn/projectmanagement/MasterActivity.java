@@ -26,10 +26,10 @@ import com.android.lurn.projectmanagement.Models.Events.PostFailureEvent;
 import com.android.lurn.projectmanagement.Models.Events.PostSuccessEvent;
 import com.android.lurn.projectmanagement.Models.Helpers.SystemBus;
 
-public abstract class BaseActivity extends AppCompatActivity
+public abstract class MasterActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final static String TAG = "BaseActivity";
+    private final static String TAG = "MasterActivity";
 
     protected final static String CONNECTION_ERROR = "Failed to connect. Please check your\n" +
             "server IP address or network connectivity!";
@@ -105,7 +105,7 @@ public abstract class BaseActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         // Inflate views.
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.activity_master);
 
         // Initialize widgets.
         onWidgetReference();
