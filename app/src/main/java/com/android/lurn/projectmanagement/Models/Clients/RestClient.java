@@ -12,6 +12,7 @@ import com.android.lurn.projectmanagement.Models.Configurations.HttpRequest;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
@@ -21,7 +22,33 @@ import java.net.HttpURLConnection;
 public class RestClient extends AsyncTask<Object, Object, Object>
 {
     private final static String TAG = "RestClient";
+
+    private HttpURLConnection mHttpConnection;
     private Exception mException;
+
+    public void viewMaster(String controller)
+    {
+        try
+        {
+            mHttpConnection = HttpRequest.generate(new String[] {controller});
+            this.execute();
+        } catch (IOException e)
+        {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    public void viewDetails(String controller, int id)
+    {
+        try
+        {
+            mHttpConnection = HttpRequest.generate(new String[] {controller, Integer.toString(id)});
+            this.execute();
+        } catch (IOException e)
+        {
+            Log.e(TAG, e.getMessage());
+        }
+    }
 
     protected void onPreExecute()
     {
@@ -33,11 +60,10 @@ public class RestClient extends AsyncTask<Object, Object, Object>
     {
         try
         {
-            HttpURLConnection httpConnection = HttpRequest.generate("projects");
             try
             {
                 BufferedReader bufferedReader;
-                bufferedReader = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
+                bufferedReader = new BufferedReader(new InputStreamReader(mHttpConnection.getInputStream()));
                 StringBuilder stringBuilder = new StringBuilder();
                 String line;
                 while ((line = bufferedReader.readLine()) != null)
@@ -48,7 +74,7 @@ public class RestClient extends AsyncTask<Object, Object, Object>
                 return new JSONObject(stringBuilder.toString());
             } finally
             {
-                httpConnection.disconnect();
+                mHttpConnection.disconnect();
             }
         } catch (Exception exception)
         {
@@ -57,7 +83,6 @@ public class RestClient extends AsyncTask<Object, Object, Object>
             return null;
         }
     }
-
 
     protected void onPostExecute(Object response)
     {

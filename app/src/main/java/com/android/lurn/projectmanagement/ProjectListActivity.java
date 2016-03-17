@@ -31,6 +31,7 @@ public class ProjectListActivity extends BaseActivity implements AdapterView.OnI
         SwipeRefreshLayout.OnRefreshListener
 {
     private static final String TAG = "ProjectListActivity";
+    private static final String CONTROLLER = "Projects";
 
     private ArrayList<JSONObjectWrapper> mList = new ArrayList<JSONObjectWrapper>();
     private ListView mListView;
@@ -79,7 +80,7 @@ public class ProjectListActivity extends BaseActivity implements AdapterView.OnI
     public void onRefresh()
     {
         Log.d(TAG, "onRefresh() called");
-        new RestClient().execute();
+        new RestClient().viewMaster(CONTROLLER);
     }
 
     @Subscribe
