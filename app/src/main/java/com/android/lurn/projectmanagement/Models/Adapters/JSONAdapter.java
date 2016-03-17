@@ -7,9 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 /**
@@ -19,17 +16,17 @@ public abstract class JSONAdapter extends BaseAdapter
 {
     private static final String TAG = "JSONAdapter";
 
-    private ArrayList<JSONObject> mList;
+    private ArrayList<JSONObjectWrapper> mList;
     private String mIdKey = "id";
     private Context mContext;
 
-    public JSONAdapter(Context context, ArrayList<JSONObject> list)
+    public JSONAdapter(Context context, ArrayList<JSONObjectWrapper> list)
     {
         mContext = context;
         mList = list;
     }
 
-    public JSONAdapter(Context context, ArrayList<JSONObject> list, String idKey)
+    public JSONAdapter(Context context, ArrayList<JSONObjectWrapper> list, String idKey)
     {
         mContext = context;
         mList = list;
@@ -43,7 +40,7 @@ public abstract class JSONAdapter extends BaseAdapter
     }
 
     @Override
-    public JSONObject getItem(int position)
+    public JSONObjectWrapper getItem(int position)
     {
         return mList.get(position);
     }
@@ -51,14 +48,7 @@ public abstract class JSONAdapter extends BaseAdapter
     @Override
     public long getItemId(int position)
     {
-        try
-        {
-            return mList.get(position).getLong(mIdKey);
-        } catch (JSONException e)
-        {
-            Log.e(TAG, e.getMessage());
-        }
-        return -1;
+        return mList.get(position).getLong(mIdKey);
     }
 
     @Override
@@ -66,16 +56,9 @@ public abstract class JSONAdapter extends BaseAdapter
     {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(getResourceRowLayout(), parent, false);
-        try
-        {
-            return mapData(row, getItem(position));
-        } catch (JSONException e)
-        {
-            Log.e(TAG, e.getMessage());
-        }
-        return null;
+        return mapData(row, getItem(position));
     }
 
     protected abstract int getResourceRowLayout();
-    protected abstract View mapData(View row, JSONObject data) throws JSONException;
+    protected abstract View mapData(View row, JSONObjectWrapper data);
 }
