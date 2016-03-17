@@ -7,7 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Emmett on 17/03/2016.
@@ -16,17 +23,17 @@ public abstract class JSONAdapter extends BaseAdapter
 {
     private static final String TAG = "JSONAdapter";
 
-    private ArrayList<JSONObjectWrapper> mList;
+    private ArrayList<JSONObject> mList;
     private String mIdKey = "id";
     private Context mContext;
 
-    public JSONAdapter(Context context, ArrayList<JSONObjectWrapper> list)
+    public JSONAdapter(Context context, ArrayList<JSONObject> list)
     {
         mContext = context;
         mList = list;
     }
 
-    public JSONAdapter(Context context, ArrayList<JSONObjectWrapper> list, String idKey)
+    public JSONAdapter(Context context, ArrayList<JSONObject> list, String idKey)
     {
         mContext = context;
         mList = list;
@@ -40,7 +47,7 @@ public abstract class JSONAdapter extends BaseAdapter
     }
 
     @Override
-    public JSONObjectWrapper getItem(int position)
+    public JSONObject getItem(int position)
     {
         return mList.get(position);
     }
@@ -48,7 +55,15 @@ public abstract class JSONAdapter extends BaseAdapter
     @Override
     public long getItemId(int position)
     {
-        return mList.get(position).getLong(mIdKey);
+        try
+        {
+            return mList.get(position).getLong(mIdKey);
+        }
+        catch (JSONException e)
+        {
+            Log.e(TAG, e.getMessage());
+        }
+        return -1;
     }
 
     @Override
@@ -59,6 +74,23 @@ public abstract class JSONAdapter extends BaseAdapter
         return mapData(row, getItem(position));
     }
 
+    protected String parse(String datetime)
+    {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        try
+        {
+            Date date = format.parse(datetime);
+            format = new SimpleDateFormat("MM/dd/yy");
+            return format.format(date);
+        }
+        catch (ParseException e)
+        {
+            Log.e(TAG, e.getMessage());
+        }
+        return "";
+    }
+
     protected abstract int getResourceRowLayout();
-    protected abstract View mapData(View row, JSONObjectWrapper data);
+
+    protected abstract View mapData(View row, JSONObject data);
 }

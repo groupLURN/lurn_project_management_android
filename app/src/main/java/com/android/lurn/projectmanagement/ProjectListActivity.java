@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.android.lurn.projectmanagement.Models.Adapters.JSONObjectWrapper;
 import com.android.lurn.projectmanagement.Models.Adapters.ProjectsAdapter;
 import com.android.lurn.projectmanagement.Models.Clients.RestClient;
 import com.android.lurn.projectmanagement.Models.Events.PostFailureEvent;
 import com.android.lurn.projectmanagement.Models.Events.PostSuccessEvent;
 import com.squareup.otto.Subscribe;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -33,17 +36,8 @@ public class ProjectListActivity extends BaseActivity implements AdapterView.OnI
     private static final String TAG = "ProjectListActivity";
     private static final String CONTROLLER = "Projects";
 
-    private ArrayList<JSONObjectWrapper> mList = new ArrayList<JSONObjectWrapper>();
+    private ArrayList<JSONObject> mList = new ArrayList<JSONObject>();
     private ListView mListView;
-
-    private void initializeList()
-    {
-        JSONObjectWrapper i = new JSONObjectWrapper();
-        i.put("id", 1);
-        i.put("content", "marvelous");
-        mList.add(i);
-        mList.add(i);
-    }
 
     @Override
     protected int getResourceLayout()
@@ -57,10 +51,8 @@ public class ProjectListActivity extends BaseActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
 
         Log.d(TAG, "onCreate() called");
-        initializeList();
 
         mListView = (ListView) findViewById(R.id.project_list);
-        mListView.setAdapter(new ProjectsAdapter((Context) this, mList));
         mListView.setOnItemClickListener(this);
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -71,8 +63,8 @@ public class ProjectListActivity extends BaseActivity implements AdapterView.OnI
     {
         Context context = (Context) this;
         Intent intent = new Intent(context, ProjectDetailActivity.class);
-        intent.putExtra(ProjectDetailFragment.ARG_ITEM_ID, Long.toString(mList.get(position).getLong("id")));
-        Log.d(TAG, Long.toString(mList.get(position).getLong("id")));
+        intent.putExtra(ProjectDetailFragment.ARG_ITEM_ID, Long.toString(id));
+        Log.d(TAG, Long.toString(id));
         context.startActivity(intent);
     }
 
@@ -86,8 +78,24 @@ public class ProjectListActivity extends BaseActivity implements AdapterView.OnI
     @Subscribe
     public void onPostSuccess(PostSuccessEvent event)
     {
-        Log.i(TAG, event.getResult().toString());
-        mSwipeRefreshLayout.setRefreshing(false);
+        JSONObject resultObject = (JSONObject) event.getResult();
+        try
+        {
+            JSONArray resultSet = resultObject.getJSONArray("projects");
+            mList.clear();
+            for(int i = 0; i < resultSet.length(); i++)
+                mList.add((JSONObject)resultSet.get(i));
+            mListView.setAdapter(new ProjectsAdapter(this, mList));
+            Log.d(TAG, mList.toString());
+        }
+        catch(JSONException exception)
+        {
+            Log.e(TAG, "onPostSuccess: Failed on loading the data.");
+        }
+        finally
+        {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Subscribe
