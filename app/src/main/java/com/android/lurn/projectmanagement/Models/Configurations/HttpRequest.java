@@ -12,8 +12,9 @@ import java.util.ArrayList;
 /**
  * Created by Emmett on 16/03/2016.
  */
-public final class HttpRequest {
-
+public final class HttpRequest
+{
+    private static final String TAG = "HttpRequest";
     private static final String FORMAT = ".json";
 
     private static String sHostname = "http://192.168.1.11";
@@ -31,36 +32,44 @@ public final class HttpRequest {
         String basicAuth = "Basic " + new String(Base64.encode(userCredentials.getBytes(), Base64.DEFAULT));
         urlConnection.setRequestProperty("Authorization", basicAuth);
 
+        Log.d(TAG, url.toString());
         return urlConnection;
     }
 
     // TODO: Next time.
-    public static HttpURLConnection generate(String controller, ArrayList<Pair<String, String> >queries) throws IOException {
+    public static HttpURLConnection generate(String controller, ArrayList<Pair<String, String>> queries) throws IOException
+    {
         return generate(controller);
     }
 
     // Getters and Setters
-    public static String getHostname() {
+    public static String getHostname()
+    {
         return sHostname;
     }
 
-    public static void setHostname(String hostname) {
+    public static void setHostname(String hostname)
+    {
         sHostname = hostname;
     }
 
-    public static String getUsername() {
+    public static String getUsername()
+    {
         return sUsername;
     }
 
-    public static void setUsername(String username) {
+    public static void setUsername(String username)
+    {
         sUsername = username;
     }
 
-    public static String getPassword() {
+    public static String getPassword()
+    {
         return sPassword;
     }
 
-    public static void setPassword(String password) {
+    public static void setPassword(String password)
+    {
         sPassword = password;
     }
 }
