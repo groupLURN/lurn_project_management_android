@@ -1,19 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/project_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem"/>
+        android:text="Project Almanac"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem"/>
-</LinearLayout>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Avenida"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/project_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/donut_progress"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/donut_progress"
+        android:layout_toStartOf="@+id/donut_progress"
+        android:layout_marginBottom="8dp"
+        android:text="In Progress"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <TextView
+        android:id="@+id/date_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="03/17/16"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/donut_progress"
+        android:layout_toStartOf="@+id/donut_progress"/>
+
+    <TextView
+        android:id="@+id/date_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="03/18/16"
+        android:layout_alignBottom="@+id/donut_progress"
+        android:layout_alignLeft="@+id/date_from"
+        android:layout_alignStart="@+id/date_from"
+        android:layout_marginBottom="8dp"/>
+
+    <com.github.lzyzsd.circleprogress.DonutProgress
+        android:id="@+id/donut_progress"
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        custom:donut_progress="100"/>
+
+</RelativeLayout>
