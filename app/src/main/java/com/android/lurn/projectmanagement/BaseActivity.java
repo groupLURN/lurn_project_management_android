@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -28,6 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity
     protected DrawerLayout mDrawerLayout;
     protected NavigationView mNavigationView;
     protected ViewGroup mInclusionViewGroup;
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
 
     private void onWidgetReference()
     {
@@ -36,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mInclusionViewGroup = (ViewGroup) findViewById(R.id.main_inclusion_layout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mInclusionViewGroup;
     }
 
     private void onWidgetSetup()
