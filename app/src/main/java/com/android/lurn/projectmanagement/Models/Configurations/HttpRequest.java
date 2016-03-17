@@ -1,5 +1,6 @@
 package com.android.lurn.projectmanagement.Models.Configurations;
 
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.util.Pair;
@@ -21,10 +22,12 @@ public final class HttpRequest
     private static String sUsername = "admin";
     private static String sPassword = "admin";
 
-    public static HttpURLConnection generate(String controller) throws IOException
+    public static HttpURLConnection generate(String[] pathSegments) throws IOException
     {
+        String path = TextUtils.join(",", pathSegments);
+
         // Generate URL Object.
-        URL url = new URL(sHostname + "/" + controller + FORMAT);
+        URL url = new URL(sHostname + "/" + path + FORMAT);
         // Create an HTTP Connection.
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         // Add Basic Authentication to HTTP headers.
@@ -37,9 +40,9 @@ public final class HttpRequest
     }
 
     // TODO: Next time.
-    public static HttpURLConnection generate(String controller, ArrayList<Pair<String, String>> queries) throws IOException
+    public static HttpURLConnection generate(String[] pathSegments, ArrayList<Pair<String, String>> queries) throws IOException
     {
-        return generate(controller);
+        return generate(pathSegments);
     }
 
     // Getters and Setters
