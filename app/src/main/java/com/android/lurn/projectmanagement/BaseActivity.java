@@ -1,7 +1,9 @@
 package com.android.lurn.projectmanagement;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+import com.android.lurn.projectmanagement.Models.Configurations.HttpRequest;
 import com.android.lurn.projectmanagement.Models.Helpers.SystemBus;
 
 public abstract class BaseActivity extends AppCompatActivity
@@ -65,6 +68,21 @@ public abstract class BaseActivity extends AppCompatActivity
         mNavigationView.setNavigationItemSelectedListener(this);
     }
 
+    private void onSettingsReload()
+    {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+
+        HttpRequest.setHostname(
+                settings.getString(getString(R.string.pref_key_ip_address), getString(R.string.pref_default_ip_address))
+        );
+        HttpRequest.setUsername(
+                settings.getString(getString(R.string.pref_key_username), getString(R.string.pref_default_username))
+        );
+        HttpRequest.setPassword(
+                settings.getString(getString(R.string.pref_key_password), getString(R.string.pref_default_password))
+        );
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -75,6 +93,9 @@ public abstract class BaseActivity extends AppCompatActivity
         // Initialize widgets.
         onWidgetReference();
         onWidgetSetup();
+
+        // Pre-load the saved settings.
+        onSettingsReload();
 
         // Inflate the child view.
         View content = LayoutInflater.from(this).inflate(

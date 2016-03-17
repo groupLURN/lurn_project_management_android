@@ -24,16 +24,23 @@ import com.android.lurn.projectmanagement.Models.Configurations.HttpRequest;
 public class SettingsActivity extends AppCompatPreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
-    private final static String PREF_GENERAL_IP_ADDRESS = "ip_address";
-    private final static String PREF_GENERAL_USERNAME = "username";
-    private final static String PREF_GENERAL_PASSWORD = "password";
+    private String PREF_GENERAL_IP_ADDRESS;
+    private String PREF_GENERAL_USERNAME;
+    private String PREF_GENERAL_PASSWORD;
+
+    private void onStringResourceLoad()
+    {
+        PREF_GENERAL_IP_ADDRESS = getResources().getString(R.string.pref_key_ip_address);
+        PREF_GENERAL_USERNAME = getResources().getString(R.string.pref_key_username);
+        PREF_GENERAL_PASSWORD = getResources().getString(R.string.pref_key_password);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Setup the home button.
         setupActionBar();
-
+        onStringResourceLoad();
         // Add 'general' preferences, defined in the XML file
         addPreferencesFromResource(R.xml.pref_general);
         // Bind the summaries of EditText/List/Dialog/Ringtone preferences

@@ -22,14 +22,18 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
+    <string name="pref_key_ip_address">ip_address</string>
     <string name="pref_title_ip_address">Server IP Address</string>
     <string name="pref_default_ip_address">http://192.168.1.11</string>
 
+    <string name="pref_key_username">username</string>
     <string name="pref_title_username">Username</string>
     <string name="pref_default_username">admin</string>
 
+    <string name="pref_key_password">password</string>
     <string name="pref_title_password">Password</string>
     <string name="pref_default_password">admin</string>
+
     <string name="title_project_list">Projects</string>
     <string name="title_project_detail">Project Detail</string>
 
