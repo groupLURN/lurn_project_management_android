@@ -18,6 +18,15 @@
             android:name=".BaseActivity"
             android:label="@string/title_activity_projects"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
+        <activity
+            android:name=".ProjectListActivity"
+            android:label="@string/title_project_list"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -25,8 +34,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings">
+            android:name=".ProjectDetailActivity"
+            android:label="@string/title_project_detail"
+            android:parentActivityName=".ProjectListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.lurn.projectmanagement.ProjectListActivity"/>
         </activity>
     </application>
 

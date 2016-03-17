@@ -18,15 +18,16 @@ import android.view.ViewGroup;
 
 import com.android.lurn.projectmanagement.Models.Helpers.SystemBus;
 
-public class BaseActivity extends AppCompatActivity
+public abstract class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final static String TAG = "BaseActivity";
 
-    private Toolbar mToolbar;
-    private FloatingActionButton mFab;
-    private DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationView;
+    protected Toolbar mToolbar;
+    protected FloatingActionButton mFab;
+    protected DrawerLayout mDrawerLayout;
+    protected NavigationView mNavigationView;
+    protected ViewGroup mInclusionViewGroup;
 
     private void onWidgetReference()
     {
@@ -34,6 +35,7 @@ public class BaseActivity extends AppCompatActivity
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mInclusionViewGroup = (ViewGroup) findViewById(R.id.main_inclusion_layout);
     }
 
     private void onWidgetSetup()
@@ -71,12 +73,11 @@ public class BaseActivity extends AppCompatActivity
         onWidgetReference();
         onWidgetSetup();
 
+        // Inflate the child view.
+        View content = LayoutInflater.from(this).inflate(
+                getResourceLayout(), null);
+        mInclusionViewGroup.addView(content);
 
-        ViewGroup inclusionViewGroup = (ViewGroup)findViewById(R.id.main_inclusion_layout);
-
-        View child1 = LayoutInflater.from(this).inflate(
-                R.layout.dummy_layout, null);
-        inclusionViewGroup.addView(child1);
         // Register this activity to the Bus.
         SystemBus.instance().register(this);
     }
@@ -155,4 +156,6 @@ public class BaseActivity extends AppCompatActivity
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    protected abstract int getResourceLayout();
 }
