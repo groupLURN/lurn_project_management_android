@@ -62,8 +62,8 @@ public class ProjectListActivity extends BaseActivity implements AdapterView.OnI
     {
         Context context = (Context) this;
         Intent intent = new Intent(context, ProjectDetailActivity.class);
+        Log.d(TAG, "Sending id:" + Long.toString(id) + " to detail activity.");
         intent.putExtra(ProjectDetailFragment.ARG_ITEM_ID, Long.toString(id));
-        Log.d(TAG, Long.toString(id));
         context.startActivity(intent);
     }
 
