@@ -18,42 +18,51 @@ import java.net.HttpURLConnection;
 /**
  * Created by Emmett on 16/03/2016.
  */
-public class RestClient extends AsyncTask<Object, Object, Object> {
-
+public class RestClient extends AsyncTask<Object, Object, Object>
+{
     private final static String TAG = "RestClient";
+    private Exception mException;
 
-    protected void onPreExecute() {
+    protected void onPreExecute()
+    {
         SystemBus.instance().post(new PreExecuteEvent());
     }
 
     @Override
-    protected Object doInBackground(Object... params) {
-
-        try {
+    protected Object doInBackground(Object... params)
+    {
+        try
+        {
             HttpURLConnection httpConnection = HttpRequest.generate("projects");
-            try {
+            try
+            {
                 BufferedReader bufferedReader;
                 bufferedReader = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
                 StringBuilder stringBuilder = new StringBuilder();
                 String line;
-                while ((line = bufferedReader.readLine()) != null) {
+                while ((line = bufferedReader.readLine()) != null)
+                {
                     stringBuilder.append(line).append("\n");
                 }
                 bufferedReader.close();
                 return new JSONObject(stringBuilder.toString());
-            } finally {
+            } finally
+            {
                 httpConnection.disconnect();
             }
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+        } catch (Exception exception)
+        {
+            mException = exception;
+            Log.e(TAG, exception.getMessage(), exception);
             return null;
         }
     }
 
 
-    protected void onPostExecute(Object response) {
+    protected void onPostExecute(Object response)
+    {
         if (response == null)
-            SystemBus.instance().post(new PostFailureEvent(response));
+            SystemBus.instance().post(new PostFailureEvent(mException));
         else
             SystemBus.instance().post(new PostSuccessEvent(response));
     }
