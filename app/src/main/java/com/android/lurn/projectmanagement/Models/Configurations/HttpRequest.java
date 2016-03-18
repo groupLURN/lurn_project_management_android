@@ -24,7 +24,7 @@ public final class HttpRequest
 
     public static HttpURLConnection generate(String[] pathSegments) throws IOException
     {
-        String path = TextUtils.join(",", pathSegments);
+        String path = TextUtils.join("/", pathSegments);
 
         // Generate URL Object.
         URL url = new URL(sHostname + "/" + path + FORMAT);
