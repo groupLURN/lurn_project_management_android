@@ -21,7 +21,7 @@ public class ProjectDetailActivity extends DetailActivity {
     @Override
     protected int getChildLayout()
     {
-        return R.layout.project_detail_activity;
+        return R.layout.project_detail_content;
     }
 
     @Override
