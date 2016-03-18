@@ -27,7 +27,7 @@ public abstract class MasterActivity extends BaseActivity
     protected FloatingActionButton mFab;
     protected DrawerLayout mDrawerLayout;
     protected NavigationView mNavigationView;
-    protected ViewGroup mInclusionViewGroup;
+    protected ViewGroup mContentContainer;
     protected SwipeRefreshLayout mSwipeRefreshLayout;
     protected CoordinatorLayout mCoordinatorLayout;
 
@@ -44,8 +44,8 @@ public abstract class MasterActivity extends BaseActivity
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-        mInclusionViewGroup = (ViewGroup) findViewById(R.id.inclusion_layout);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) mInclusionViewGroup;
+        mContentContainer = (ViewGroup) findViewById(R.id.content_container);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mContentContainer;
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
     }
 
@@ -159,9 +159,9 @@ public abstract class MasterActivity extends BaseActivity
         return true;
     }
     @Override
-    protected ViewGroup getInclusionViewGroup()
+    protected ViewGroup getContentContainer()
     {
-        return mInclusionViewGroup;
+        return mContentContainer;
     }
 
     @Override

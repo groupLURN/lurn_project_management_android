@@ -56,7 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity
         // Inflate the child view.
         View content = LayoutInflater.from(this).inflate(
                 getChildLayout(), null);
-        getInclusionViewGroup().addView(content);
+        getContentContainer().addView(content);
         // Initialize widgets.
         onChildWidgetReference();
         onChildWidgetSetup();
@@ -102,6 +102,6 @@ public abstract class BaseActivity extends AppCompatActivity
     protected abstract int getChildLayout();
     protected abstract void onChildWidgetSetup();
     protected abstract void onChildWidgetReference();
-    protected abstract ViewGroup getInclusionViewGroup();
+    protected abstract ViewGroup getContentContainer();
     protected abstract CoordinatorLayout getCoordinatorLayout();
 }
