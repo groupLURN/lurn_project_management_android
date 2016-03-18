@@ -2,7 +2,6 @@ package com.android.lurn.projectmanagement;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -39,22 +38,22 @@ public class ProjectListActivity extends MasterActivity implements AdapterView.O
     private ListView mListView;
 
     @Override
-    protected int getResourceLayout()
+    protected int getChildLayout()
     {
         return R.layout.project_list;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onChildWidgetReference()
     {
-        super.onCreate(savedInstanceState);
-
-        Log.d(TAG, "onCreate() called");
-
         mListView = (ListView) findViewById(R.id.project_list);
-        mListView.setOnItemClickListener(this);
+    }
 
+    @Override
+    protected void onChildWidgetSetup()
+    {
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
