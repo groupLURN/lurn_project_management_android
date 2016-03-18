@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class ProjectListActivity extends MasterActivity implements AdapterView.OnItemClickListener,
         SwipeRefreshLayout.OnRefreshListener
 {
-    public static final String CONTROLLER = "Projects";
+    public static final String CONTROLLER = "projects";
 
     private static final String TAG = "ProjectListActivity";
 

@@ -4,37 +4,39 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import com.android.lurn.projectmanagement.Models.Adapters.ProjectDetailsAdapter;
 import com.android.lurn.projectmanagement.Models.Clients.RestClient;
 import com.android.lurn.projectmanagement.Models.Events.PostFailureEvent;
 import com.android.lurn.projectmanagement.Models.Events.PostSuccessEvent;
 import com.squareup.otto.Subscribe;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class ProjectDetailActivity extends DetailActivity {
 
     private final static String TAG = "ProjectDetailActivity";
-    private TextView mTextView;
+    private ListView mListView;
 
     @Override
     protected int getChildLayout()
     {
-        return R.layout.project_detail_content;
+        return R.layout.list_view;
     }
 
     @Override
     protected void onChildWidgetReference()
     {
-        mTextView = (TextView) findViewById(R.id.project_detail);
+        mListView = (ListView) findViewById(R.id.list_view);
     }
 
     @Override
     protected void onChildWidgetSetup()
     {
-        mTextView.setText("Hello World Indeed");
-
         mFab.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -57,8 +59,20 @@ public class ProjectDetailActivity extends DetailActivity {
     @Subscribe public void onPostSuccess(PostSuccessEvent event)
     {
         JSONObject resultObject = (JSONObject) event.getResult();
-        Log.d(TAG, resultObject.toString());
-        mAppBarLayout.setTitle(mId);
+
+        try
+        {
+            resultObject = resultObject.getJSONObject("project");
+            ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+            list.add(resultObject);
+            Log.d(TAG, list.toString());
+            mAppBarLayout.setTitle(resultObject.getString("title"));
+            mListView.setAdapter(new ProjectDetailsAdapter(this, list));
+        }
+        catch(JSONException exception)
+        {
+            Log.e(TAG, "onPostSuccess: Failed on loading the data.");
+        }
     }
 
     @Subscribe public void onPostFailure(PostFailureEvent event)

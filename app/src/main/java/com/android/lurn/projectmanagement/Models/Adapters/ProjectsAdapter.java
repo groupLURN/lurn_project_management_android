@@ -22,7 +22,7 @@ import java.util.Date;
  */
 public class ProjectsAdapter extends JSONAdapter
 {
-    private static final String TAG = "JSONAdapter";
+    private static final String TAG = "ProjectsAdapter";
 
     public ProjectsAdapter(Context context, ArrayList<JSONObject> list, String idKey)
     {
@@ -58,10 +58,6 @@ public class ProjectsAdapter extends JSONAdapter
             startDate.setText(this.parse(data.getString("start_date")));
             endDate.setText(this.parse(data.getString("end_date")));
             progress.setProgress(data.getInt("progress"));
-        }
-        catch (JSONException e)
-        {
-            Log.e(TAG, e.getMessage());
         }
         catch(Exception e)
         {

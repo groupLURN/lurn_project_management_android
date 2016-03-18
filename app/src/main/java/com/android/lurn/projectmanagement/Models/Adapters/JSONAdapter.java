@@ -30,13 +30,13 @@ public abstract class JSONAdapter extends BaseAdapter
     public JSONAdapter(Context context, ArrayList<JSONObject> list)
     {
         mContext = context;
-        mList = list;
+        mList = onPreProcess(list);
     }
 
     public JSONAdapter(Context context, ArrayList<JSONObject> list, String idKey)
     {
         mContext = context;
-        mList = list;
+        mList = onPreProcess(list);
         mIdKey = idKey;
     }
 
@@ -90,7 +90,7 @@ public abstract class JSONAdapter extends BaseAdapter
         return "";
     }
 
+    protected ArrayList<JSONObject> onPreProcess(ArrayList<JSONObject> list){ return list; }
     protected abstract int getResourceRowLayout();
-
     protected abstract View mapData(View row, JSONObject data);
 }
