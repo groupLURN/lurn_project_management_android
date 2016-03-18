@@ -1,5 +1,6 @@
 package com.android.lurn.projectmanagement;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -66,7 +67,12 @@ public abstract class BaseActivity extends AppCompatActivity
 
         // Register this activity to the Bus.
         SystemBus.instance().register(this);
+
+        Intent intent = getIntent();
+        if(intent != null)
+            onIntentReceive(intent);
     }
+
 
     @Override
     protected final void onDestroy() {
@@ -104,4 +110,5 @@ public abstract class BaseActivity extends AppCompatActivity
     protected abstract void onChildWidgetReference();
     protected abstract ViewGroup getContentContainer();
     protected abstract CoordinatorLayout getCoordinatorLayout();
+    protected void onIntentReceive(Intent intent) {}
 }
