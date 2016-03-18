@@ -32,7 +32,7 @@ public class ProjectListActivity extends MasterActivity implements AdapterView.O
     @Override
     protected int getChildLayout()
     {
-        return R.layout.project_list;
+        return R.layout.project_list_activity;
     }
 
     @Override
