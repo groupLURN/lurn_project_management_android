@@ -35,6 +35,6 @@
     <string name="pref_default_password">admin</string>
 
     <string name="title_project_list">Projects</string>
-    <string name="title_project_detail">Project Detail</string>
+    <string name="title_project_detail"></string>
 
 </resources>
