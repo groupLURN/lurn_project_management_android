@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ListView
-    android:id="@+id/project_list"
+    android:id="@+id/list_view"
     android:name="com.android.lurn.projectmanagement.ProjectListFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

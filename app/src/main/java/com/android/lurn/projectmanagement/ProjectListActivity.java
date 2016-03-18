@@ -32,13 +32,13 @@ public class ProjectListActivity extends MasterActivity implements AdapterView.O
     @Override
     protected int getChildLayout()
     {
-        return R.layout.project_list_activity;
+        return R.layout.list_view;
     }
 
     @Override
     protected void onChildWidgetReference()
     {
-        mListView = (ListView) findViewById(R.id.project_list);
+        mListView = (ListView) findViewById(R.id.list_view);
     }
 
     @Override
