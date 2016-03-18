@@ -48,11 +48,11 @@ public class RestClient extends AsyncTask<Object, Object, Object>
         }
     }
 
-    public void viewDetails(String controller, int id)
+    public void viewDetails(String controller, String id)
     {
         try
         {
-            mHttpConnection = HttpRequest.generate(new String[]{controller, Integer.toString(id)});
+            mHttpConnection = HttpRequest.generate(new String[]{controller, id});
             this.execute();
         }
         catch (IOException e)
