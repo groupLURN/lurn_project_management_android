@@ -1,0 +1,9 @@
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\assemblies\LURN DROID.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\assemblies\Mono.Android.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\assemblies\mscorlib.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\assemblies\System.Core.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\assemblies\System.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\assemblies\System.Xml.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\assemblies\System.Xml.Linq.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\assemblies\System.Runtime.Serialization.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\assemblies\System.ServiceModel.Internals.dll

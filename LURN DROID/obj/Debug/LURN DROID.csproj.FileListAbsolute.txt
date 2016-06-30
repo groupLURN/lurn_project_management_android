@@ -1,0 +1,21 @@
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\LURN DROID.csprojResolveAssemblyReference.cache
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\bin\Debug\LURN DROID.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\bin\Debug\LURN DROID.pdb
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\bin\Debug\LURN_DROID.LURN_DROID.apk
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\bin\Debug\LURN_DROID.LURN_DROID-Signed.apk
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\LURN DROID.dll
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\LURN DROID.pdb
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\android\bin\LURN_DROID.LURN_DROID.apk
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\layout\action_bar.xml
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\layout\main.xml
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\values\strings.xml
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\drawable\icon.png
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\drawable\ic_dashboard_white_36dp.png
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\drawable\ic_home_white_36dp.png
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\drawable\ic_library_books_white_36dp.png
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\drawable\ic_low_priority_white_36dp.png
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\drawable\ic_mode_comment_white_36dp.png
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\drawable\selector.xml
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\R.cs.flag
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\uploadflags.txt
+d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\values\theme.xml

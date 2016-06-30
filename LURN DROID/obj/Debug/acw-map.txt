@@ -1,0 +1,4 @@
+LURN_DROID.MainActivity, LURN DROID;md57cb8dc9f70957f951027504e218bfcd6.MainActivity
+LURN_DROID.MainActivity, LURN DROID, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57cb8dc9f70957f951027504e218bfcd6.MainActivity
+LURN_DROID.MainActivity;md57cb8dc9f70957f951027504e218bfcd6.MainActivity
+lurn_droid.MainActivity;md57cb8dc9f70957f951027504e218bfcd6.MainActivity
