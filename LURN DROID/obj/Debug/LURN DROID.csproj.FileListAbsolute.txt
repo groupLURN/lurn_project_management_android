@@ -19,3 +19,6 @@ d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DRO
 d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\R.cs.flag
 d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\uploadflags.txt
 d:\users\administrator\documents\visual studio 2015\Projects\LURN DROID\LURN DROID\obj\Debug\res\values\theme.xml
+D:\GIT-ROOT-LURN\lurn_project_management_android\LURN DROID\obj\Debug\LURN DROID.csprojResolveAssemblyReference.cache
+D:\GIT-ROOT-LURN\lurn_project_management_android\LURN DROID\obj\Debug\LURN DROID.dll
+D:\GIT-ROOT-LURN\lurn_project_management_android\LURN DROID\obj\Debug\LURN DROID.pdb

@@ -78,8 +78,11 @@ namespace LURN_DROID
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f06000d
+			public const int content_frame = 2131099661;
+			
 			// aapt resource value: 0x7f06000c
-			public const int MyButton = 2131099660;
+			public const int drawer_layout = 2131099660;
 			
 			// aapt resource value: 0x7f060001
 			public const int imageView1 = 2131099649;
@@ -92,6 +95,9 @@ namespace LURN_DROID
 			
 			// aapt resource value: 0x7f06000a
 			public const int imageView4 = 2131099658;
+			
+			// aapt resource value: 0x7f06000e
+			public const int left_drawer = 2131099662;
 			
 			// aapt resource value: 0x7f060000
 			public const int linearLayout1 = 2131099648;
